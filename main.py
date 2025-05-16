@@ -1,45 +1,36 @@
-from Produto import Produto
-from ProdutoAlimenticio import ProdutoAlimenticio
+from produto import ProdutoAlimenticio
 
-produtos = []
+produto = ProdutoAlimenticio("Leite", 4.99, 20, "20/06/2025")
 
-def cadastrar_produto():
-    nome = input("Nome do produto: ")
-    preco = float(input("Preço: "))
-    quantidade = int(input("Quantidade: "))
-    produto = Produto(nome, preco, quantidade)
-    produtos.append(produto)
+while True:
+    print("\n=== MENU ===")
+    print("1 - Exibir detalhes do produto")
+    print("2 - Repor estoque")
+    print("3 - Vender produto")
+    print("4 - Sair")
 
-def cadastrar_alimenticio():
-    nome = input("Nome do alimento: ")
-    preco = float(input("Preço: "))
-    quantidade = int(input("Quantidade: "))
-    validade = input("Data de validade (dd/mm/aaaa): ")
-    produto = ProdutoAlimenticio(nome, preco, quantidade, validade)
-    produtos.append(produto)
+    opcao = input("Escolha uma opção: ")
 
-def exibir_todos_produtos():
-    print("\n--- Produtos Cadastrados ---")
-    for p in produtos:
-        p.exibir_produtos()
+    if opcao == "1":
+        produto.exibir_detalhes()
 
-def menu():
-    while True:
-        print("\n1 - Cadastrar Produto Comum")
-        print("2 - Cadastrar Produto Alimentício")
-        print("3 - Exibir Produtos")
-        print("4 - Sair")
-        opcao = input("Escolha uma opção: ")
+    elif opcao == "2":
+        try:
+            qtd = int(input("Digite a quantidade a adicionar ao estoque: "))
+            produto.repor_estoque(qtd)
+        except ValueError:
+            print("Digite um número válido.")
 
-        if opcao == "1":
-            cadastrar_produto()
-        elif opcao == "2":
-            cadastrar_alimenticio()
-        elif opcao == "3":
-            exibir_todos_produtos()
-        elif opcao == "4":
-            break
-        else:
-            print("Opção inválida!")
+    elif opcao == "3":
+        try:
+            qtd = int(input("Digite a quantidade a vender: "))
+            produto.vender_produto(qtd)
+        except ValueError:
+            print("Digite um número válido.")
 
-menu()
+    elif opcao == "4":
+        print("Saindo...")
+        break
+
+    else:
+        print("Opção inválida.")
